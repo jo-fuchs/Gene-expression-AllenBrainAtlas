@@ -19,4 +19,6 @@ were collected from dissections of brain regions from ~8 week-old male and
 female mice, from pan-neuronal transgenic lines.
 
 
-goal: visualize PRG-Expression over cell types (should in principle work for other genes)
+goal: visualize PRG-Expression over cell types (should in principle work for other genes) as exemplified below
+
+![example visualization for Lppr gene family in SMART dataset](https://github.com/jo-fuchs/Gene-expression-AllenBrainAtlas/blob/master/Lppr_means_TenX.png?raw=true)
