@@ -63,17 +63,32 @@ TenX$Figure_A <- plot_class(TenX, "Plppr")
 
 
 # Each individual gene has to be named separately here
-SMART$Figure_B1 <- plot_subclass(SMART, "Lppr1")
-SMART$Figure_B2 <- plot_subclass(SMART, "Lppr2")
-SMART$Figure_B3 <- plot_subclass(SMART, "Lppr3")
-SMART$Figure_B4 <- plot_subclass(SMART, "Lppr4")
-SMART$Figure_B5 <- plot_subclass(SMART, "Lppr5")
+SMART$Figure_B1 <- plot_neighborhood(SMART, "Lppr1")
+SMART$Figure_B2 <- plot_neighborhood(SMART, "Lppr2")
+SMART$Figure_B3 <- plot_neighborhood(SMART, "Lppr3")
+SMART$Figure_B4 <- plot_neighborhood(SMART, "Lppr4")
+SMART$Figure_B5 <- plot_neighborhood(SMART, "Lppr5")
 
-TenX$Figure_B1 <- plot_subclass(TenX, "Plppr1")
-TenX$Figure_B2 <- plot_subclass(TenX, "Plppr2")
-TenX$Figure_B3 <- plot_subclass(TenX, "Plppr3")
-TenX$Figure_B4 <- plot_subclass(TenX, "Plppr4")
-TenX$Figure_B5 <- plot_subclass(TenX, "Plppr5")
+TenX$Figure_B1 <- plot_neighborhood(TenX, "Plppr1")
+TenX$Figure_B2 <- plot_neighborhood(TenX, "Plppr2")
+TenX$Figure_B3 <- plot_neighborhood(TenX, "Plppr3")
+TenX$Figure_B4 <- plot_neighborhood(TenX, "Plppr4")
+TenX$Figure_B5 <- plot_neighborhood(TenX, "Plppr5")
+
+
+
+# Each individual gene has to be named separately here
+SMART$Figure_C1 <- plot_subclass(SMART, "Lppr1")
+SMART$Figure_C2 <- plot_subclass(SMART, "Lppr2")
+SMART$Figure_C3 <- plot_subclass(SMART, "Lppr3")
+SMART$Figure_C4 <- plot_subclass(SMART, "Lppr4")
+SMART$Figure_C5 <- plot_subclass(SMART, "Lppr5")
+
+TenX$Figure_C1 <- plot_subclass(TenX, "Plppr1")
+TenX$Figure_C2 <- plot_subclass(TenX, "Plppr2")
+TenX$Figure_C3 <- plot_subclass(TenX, "Plppr3")
+TenX$Figure_C4 <- plot_subclass(TenX, "Plppr4")
+TenX$Figure_C5 <- plot_subclass(TenX, "Plppr5")
 
 
 # Finish up SMART Figure
@@ -82,11 +97,16 @@ SMART$Figure_B <- plot_grid(SMART$Figure_B1, SMART$Figure_B2, SMART$Figure_B3, S
   nrow = 1, align = "h", axis = "bt"
 )
 
+SMART$Figure_C <- plot_grid(SMART$Figure_C1, SMART$Figure_C2, SMART$Figure_C3, SMART$Figure_C4, SMART$Figure_C5,
+                            scale = 1,
+                            nrow = 1, align = "h", axis = "bt"
+)
 
-SMART$Figure <- plot_grid(SMART$Figure_A, SMART$Figure_B, nrow = 2, rel_heights = c(1, 3), labels = c("A", "B"))
+
+SMART$Figure <- plot_grid(SMART$Figure_A, SMART$Figure_B, SMART$Figure_C, nrow = 3, rel_heights = c(1, 1, 3), labels = c("A", "B", "C"))
 
 
-ggsave("Lppr_means_SMART.png", SMART$Figure, device = "png", scale = 1.5, width = 210, height = 180, units = "mm")
+ggsave("Lppr_means_SMART.png", SMART$Figure, device = "png", scale = 1.5, width = 210, height = 240, units = "mm")
 
 
 
@@ -97,7 +117,13 @@ TenX$Figure_B <- plot_grid(TenX$Figure_B1, TenX$Figure_B2, TenX$Figure_B3, TenX$
 )
 
 
-TenX$Figure <- plot_grid(TenX$Figure_A, TenX$Figure_B, nrow = 2, rel_heights = c(1, 3), labels = c("A", "B"))
+TenX$Figure_C <- plot_grid(TenX$Figure_C1, TenX$Figure_C2, TenX$Figure_C3, TenX$Figure_C4, TenX$Figure_C5,
+                            scale = 1,
+                            nrow = 1, align = "h", axis = "bt"
+)
 
 
-ggsave("Lppr_means_TenX.png", TenX$Figure, device = "png", scale = 1.5, width = 210, height = 180, units = "mm")
+TenX$Figure <- plot_grid(TenX$Figure_A, TenX$Figure_B, TenX$Figure_C, nrow = 3, rel_heights = c(1, 1, 3), labels = c("A", "B", "C"))
+
+
+ggsave("Lppr_means_TenX.png", TenX$Figure, device = "png", scale = 1.5, width = 210, height = 240, units = "mm")

@@ -19,7 +19,7 @@ find_gene <- function(input, gene) {
   
   # count individual cell types
   input$clusters <- input$metadata %>%
-    group_by(cluster_label, class_label, subclass_label) %>%
+    group_by(cluster_label, class_label, subclass_label, neighborhood_label) %>%
     summarise(number = n())
   
   

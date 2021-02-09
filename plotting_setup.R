@@ -38,7 +38,7 @@ plot_class <- function(input, gene) {
     facet_wrap(~feature, nrow = 1) +
     Branchtheme +
     scale_x_continuous(limits = c(0, 10)) +
-    scale_size_continuous(range = c(1,4)) +
+    scale_size_continuous(range = c(1,3)) +
     labs(
       x = "mRNA abundance [log2(CPM(exons+introns))]",
       y = "",
@@ -49,6 +49,25 @@ plot_class <- function(input, gene) {
 }
 
 
+
+# plot neighbourhoods sorted individually
+plot_neighborhood <- function(input, gene) {
+  input$final %>%
+    filter(feature == gene) %>%
+    mutate(neighborhood_label = fct_reorder(neighborhood_label, expression)) %>%
+    ggplot(aes(y = neighborhood_label, x = expression)) +
+    geom_boxplot(color = "grey") +
+    geom_point(shape = 16, aes(color = class_label, size = number, alpha = log(number))) +
+    facet_wrap(~feature) +
+    Branchtheme +
+    labs(
+      x = "",
+      y = ""
+    ) +
+    scale_x_continuous(limits = c(0, 10)) +
+    scale_size_continuous(range = c(1,3)) +
+    scale_color_scico_d(palette = sci_pal, begin = 0.75, end = 0)
+}
 
 # plot cell types sorted individually
 plot_subclass <- function(input, gene) {
