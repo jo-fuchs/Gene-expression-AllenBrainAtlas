@@ -19,11 +19,9 @@ input$Figure_data <- plot_grid(input$Figure_left, input$Figure_C, ncol = 2, labe
 input$Figure <- plot_grid(input$Header, input$Figure_data, nrow = 2, rel_heights = c(1, 10), labels = c("", ""))
 
 
-ggsave(glue("{gene}_means_{input$name}.png"), input$Figure, device = "png", scale = 1.5, width = 210, height = 150, units = "mm")
+ggsave(glue("{gene}_expression_{input$name}.png"), input$Figure, device = "png", scale = 1.5, width = 210, height = 150, units = "mm")
 
 }
-
-plot_individual_cell(SMART, "Lppr3")
 
 
 ## Plotting functions individual stuff
@@ -99,4 +97,11 @@ plot_subclass <- function(input, gene) {
     scale_size_continuous(range = c(1,4)) +
     scale_color_scico_d(palette = sci_pal, begin = 0.75, end = 0)
 }
+
+
+
+## Call functions for Genes
+plot_individual_cell(SMART, "Lppr3")
+
+plot_individual_cell(TenX, "Plppr3")
 
