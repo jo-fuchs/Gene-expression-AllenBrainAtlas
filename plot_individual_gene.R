@@ -7,7 +7,7 @@ input$Figure_C <- plot_subclass(input, gene)
 
 
 input$Header <- ggplot() + Branchtheme + 
-  labs(title = glue("mRNA levels of {gene}-family in various P40 mouse brain cells"),
+  labs(title = glue("mRNA levels of {gene} in various P50-P60 mouse brain cells"),
        subtitle = glue("single-cell transcriptomes ({input$name}) from multiple cortical areas and the hippocampal formation, including {input$cellcount} total cells"))
 
 
@@ -21,7 +21,17 @@ input$Figure <- plot_grid(input$Header, input$Figure_data, nrow = 2, rel_heights
 
 ggsave(glue("{gene}_expression_{input$name}.png"), input$Figure, device = "png", scale = 1.5, width = 210, height = 150, units = "mm")
 
+# ggsave(glue("{gene}_expression_{input$name}.pdf"), input$Figure, device = "pdf", scale = 1.5, width = 210, height = 150, units = "mm")
+
 }
+
+## Colors from scico-package --
+# Crameri, F. (2018). Scientific colour maps. Zenodo.
+# http://doi.org/10.5281/zenodo.1243862
+
+# for Genotype & Location
+sci_pal <- "batlow"
+
 
 
 ## Plotting functions individual stuff
@@ -97,11 +107,4 @@ plot_subclass <- function(input, gene) {
     scale_size_continuous(range = c(1,4)) +
     scale_color_scico_d(palette = sci_pal, begin = 0.75, end = 0)
 }
-
-
-
-## Call functions for Genes
-plot_individual_cell(SMART, "Lppr3")
-
-plot_individual_cell(TenX, "Plppr3")
 

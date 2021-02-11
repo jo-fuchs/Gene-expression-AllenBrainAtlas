@@ -1,6 +1,15 @@
-# Analyse single cell transcriptome datasets from Allen Brain Atlas
+# Visualize single cell RNA-seq datasets from Allen Brain Atlas
 
-downloaded from:
+Visualize gene-expression over cell types as exemplified below for one gene
+
+![example visualization for Lppr3 in SMART dataset](https://github.com/jo-fuchs/Gene-expression-AllenBrainAtlas/blob/master/Lppr3_expression_SMART.png?raw=true)
+
+
+Visualize gene-expression of gene sets (gene families) as exemplified below
+![example visualization for Lppr-family in 10x dataset](https://github.com/jo-fuchs/Gene-expression-AllenBrainAtlas/blob/master/Plppr_family_TenX.png?raw=true)
+
+
+Datasets accessible at:
 SMART (2019):
 https://portal.brain-map.org/atlases-and-data/rnaseq/mouse-whole-cortex-and-hippocampus-smart-seq
 This data set includes single-cell transcriptomes from
@@ -18,7 +27,4 @@ areas and the hippocampal formation, including 1,093,785 total cells. Samples
 were collected from dissections of brain regions from ~8 week-old male and
 female mice, from pan-neuronal transgenic lines.
 
-
-goal: visualize PRG-Expression over cell types (should in principle work for other genes) as exemplified below
-
-![example visualization for Lppr gene family in SMART dataset](https://github.com/jo-fuchs/Gene-expression-AllenBrainAtlas/blob/master/Lppr_means_TenX.png?raw=true)
+Their publication: https://doi.org/10.1101/2020.03.30.015214

@@ -19,7 +19,7 @@
 ## female mice, from pan-neuronal transgenic lines.
 ## 
 ##
-## goal: visualize PRG-Expression over cell types
+## goal: visualize gene-Expression over cell types & neighborhoods
 
 
 
@@ -29,7 +29,7 @@ library(scico)
 library(glue)
 library(cowplot)
 source("find_gene.R")
-source("plotting_setup.R")
+
 
 SMART <- list(name = "SMART", 
               cellcount = "76,533")
@@ -38,26 +38,46 @@ TenX <- list(name = "10x",
 
 
 # SMART seq
-SMART$expression_medians <- read_csv(file.path("SMART", "medians.csv"))
+# SMART$expression_medians <- read_csv(file.path("SMART", "medians.csv"))
 SMART$expression_means <- read_csv(file.path("SMART", "trimmed_means.csv"))
 SMART$metadata <- read_csv(file.path("SMART", "metadata.csv"))
 
 
 # 10x Seq
-TenX$expression_medians <- read_csv(file.path("10x", "medians.csv"))
+# TenX$expression_medians <- read_csv(file.path("10x", "medians.csv"))
 TenX$expression_means <- read_csv(file.path("10x", "trimmed_means.csv"))
 TenX$metadata <- read.csv(file.path("10x", "metadata.csv"))
 
 
 
-# Decide for which gene (family) to analyse 
 
+
+### Plots
+## Individual gene
+source("plot_individual_gene.R")
+
+# from SMART dataset
+plot_individual_cell(SMART, "Lppr3")
+
+# from 10x dataset
+plot_individual_cell(TenX, "Plppr3")
+
+
+
+
+
+
+
+
+## Plotting for multiple genes / a gene family
+source("plotting_setup.R")
+
+
+# Decide for which gene (family) to analyse 
 SMART <- find_gene(SMART, "Lppr")
 TenX <- find_gene(TenX, "Plppr")
 
 
-
-### Plots
 SMART$Figure_A <- plot_class(SMART, "Lppr")
 TenX$Figure_A <- plot_class(TenX, "Plppr")
 
@@ -106,7 +126,9 @@ SMART$Figure_C <- plot_grid(SMART$Figure_C1, SMART$Figure_C2, SMART$Figure_C3, S
 SMART$Figure <- plot_grid(SMART$Figure_A, SMART$Figure_B, SMART$Figure_C, nrow = 3, rel_heights = c(1, 1, 3), labels = c("A", "B", "C"))
 
 
-ggsave("Lppr_means_SMART.png", SMART$Figure, device = "png", scale = 1.5, width = 210, height = 240, units = "mm")
+ggsave("Lppr_family_SMART.png", SMART$Figure, device = "png", scale = 1.5, width = 210, height = 240, units = "mm")
+
+# ggsave("Lppr_means_SMART.pdf", SMART$Figure, device = "pdf", scale = 1.5, width = 210, height = 240, units = "mm")
 
 
 
@@ -126,4 +148,6 @@ TenX$Figure_C <- plot_grid(TenX$Figure_C1, TenX$Figure_C2, TenX$Figure_C3, TenX$
 TenX$Figure <- plot_grid(TenX$Figure_A, TenX$Figure_B, TenX$Figure_C, nrow = 3, rel_heights = c(1, 1, 3), labels = c("A", "B", "C"))
 
 
-ggsave("Lppr_means_TenX.png", TenX$Figure, device = "png", scale = 1.5, width = 210, height = 240, units = "mm")
+ggsave("Plppr_family_TenX.png", TenX$Figure, device = "png", scale = 1.5, width = 210, height = 240, units = "mm")
+
+# ggsave("Lppr_family_TenX.pdf", TenX$Figure, device = "pdf", scale = 1.5, width = 210, height = 240, units = "mm")

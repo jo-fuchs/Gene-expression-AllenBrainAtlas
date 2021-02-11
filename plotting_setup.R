@@ -42,7 +42,7 @@ plot_class <- function(input, gene) {
     labs(
       x = "mRNA abundance [log2(CPM(exons+introns))]",
       y = "",
-      title = glue("mRNA levels of {gene}-family in various P40 mouse brain cells"),
+      title = glue("mRNA levels of {gene}-family in various P50-P60 mouse brain cells"),
       subtitle = glue("single-cell transcriptomes ({input$name}) from multiple cortical areas and the hippocampal formation, including {input$cellcount} total cells")
     ) +
     scale_color_scico_d(palette = sci_pal, begin = 0.75, end = 0)
