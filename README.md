@@ -9,6 +9,11 @@ Visualize gene-expression of gene sets (gene families) as exemplified below
 ![example visualization for Lppr-family in 10x dataset](https://github.com/jo-fuchs/Gene-expression-AllenBrainAtlas/blob/master/Plppr_family_TenX.png?raw=true)
 
 
+# Browse the datasets interactively 
+... using the Shiny-App in shiny_individual_gene.R
+![preview of Shiny-App interface](https://github.com/jo-fuchs/Gene-expression-AllenBrainAtlas/blob/master/Shiny_preview.png?raw=true)
+
+
 Datasets accessible at:
 SMART (2019):
 https://portal.brain-map.org/atlases-and-data/rnaseq/mouse-whole-cortex-and-hippocampus-smart-seq
