@@ -1,9 +1,9 @@
 # Plotting everything for only one gene
-plot_individual_cell <- function(input, gene){
+plot_individual_gene <- function(input, gene, max_val){
 input <- find_gene(input, gene)
-input$Figure_A <- plot_class(input, gene)
-input$Figure_B <- plot_neighborhood(input, gene)
-input$Figure_C <- plot_subclass(input, gene)
+input$Figure_A <- plot_class(input, gene, max_val)
+input$Figure_B <- plot_neighborhood(input, gene, max_val)
+input$Figure_C <- plot_subclass(input, gene, max_val)
 
 
 input$Header <- ggplot() + Branchtheme + 
@@ -19,10 +19,10 @@ input$Figure_data <- plot_grid(input$Figure_left, input$Figure_C, ncol = 2, labe
 input$Figure <- plot_grid(input$Header, input$Figure_data, nrow = 2, rel_heights = c(1, 10), labels = c("", ""))
 
 
-ggsave(glue("{gene}_expression_{input$name}.png"), input$Figure, device = "png", scale = 1.5, width = 210, height = 150, units = "mm")
+# ggsave(glue("{gene}_expression_{input$name}.png"), input$Figure, device = "png", scale = 1.5, width = 210, height = 150, units = "mm")
 
 # ggsave(glue("{gene}_expression_{input$name}.pdf"), input$Figure, device = "pdf", scale = 1.5, width = 210, height = 150, units = "mm")
-
+return(input$Figure)
 }
 
 ## Colors from scico-package --
@@ -48,15 +48,16 @@ Branchtheme <- theme_minimal() +
 
 
 
-plot_class <- function(input, gene) {
+plot_class <- function(input, gene, max_val) {
   input$final %>%
     # mutate(class_label = fct_reorder(class_label, expression)) %>%
     
     ggplot(aes(y = class_label, x = expression, color = class_label, size = number, alpha = log(number))) +
     geom_quasirandom(groupOnX = F, shape = 16) +
-    facet_wrap(~feature, nrow = 1) +
+   # facet_wrap(~feature, nrow = 1) +
     Branchtheme +
-    scale_x_continuous(limits = c(0, 10)) +
+    coord_cartesian(xlim = c(0,max_val)) +
+    #scale_x_continuous(limits = c(0, 10)) +
     scale_size_continuous(range = c(1,3)) +
     labs(
       x = "mRNA abundance [log2(CPM(exons+introns))]",
@@ -69,41 +70,43 @@ plot_class <- function(input, gene) {
 
 
 # plot neighbourhoods sorted individually
-plot_neighborhood <- function(input, gene) {
+plot_neighborhood <- function(input, gene, max_val) {
   input$final %>%
     filter(feature == gene) %>%
     mutate(neighborhood_label = fct_reorder(neighborhood_label, expression)) %>%
     ggplot(aes(y = neighborhood_label, x = expression)) +
     geom_boxplot(color = "grey") +
     geom_point(shape = 16, aes(color = class_label, size = number, alpha = log(number))) +
-    facet_wrap(~feature) +
+   # facet_wrap(~feature) +
     Branchtheme +
     labs(
       x = "mRNA abundance [log2(CPM(exons+introns))]",
       y = "",
       title = glue("{gene}-expression in neighborhoods")
     ) +
-    scale_x_continuous(limits = c(0, 10)) +
+    coord_cartesian(xlim = c(0,max_val)) +
+#    scale_x_continuous(limits = c(0, 10)) +
     scale_size_continuous(range = c(1,3)) +
     scale_color_scico_d(palette = sci_pal, begin = 0.75, end = 0)
 }
 
 # plot cell types sorted individually
-plot_subclass <- function(input, gene) {
+plot_subclass <- function(input, gene, max_val) {
   input$final %>%
     filter(feature == gene) %>%
     mutate(subclass_label = fct_reorder(subclass_label, expression)) %>%
     ggplot(aes(y = subclass_label, x = expression)) +
     geom_boxplot(color = "grey") +
     geom_point(shape = 16, aes(color = class_label, size = number, alpha = log(number))) +
-    facet_wrap(~feature) +
+   # facet_wrap(~feature) +
     Branchtheme +
     labs(
       x = "mRNA abundance [log2(CPM(exons+introns))]",
       y = "",
       title = glue("{gene}-expression in individual cell types")
     ) +
-    scale_x_continuous(limits = c(0, 10)) +
+    coord_cartesian(xlim = c(0,max_val)) +
+#    scale_x_continuous(limits = c(0, 10)) +
     scale_size_continuous(range = c(1,4)) +
     scale_color_scico_d(palette = sci_pal, begin = 0.75, end = 0)
 }

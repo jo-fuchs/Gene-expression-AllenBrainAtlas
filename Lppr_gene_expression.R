@@ -57,10 +57,10 @@ TenX$metadata <- read.csv(file.path("10x", "metadata.csv"))
 source("plot_individual_gene.R")
 
 # from SMART dataset
-plot_individual_cell(SMART, "Lppr3")
+plot_individual_gene(SMART, "Lppr3", 10)
 
 # from 10x dataset
-plot_individual_cell(TenX, "Plppr3")
+plot_individual_gene(TenX, "Plppr3", 10)
 
 
 
