@@ -12,7 +12,7 @@ input$Header <- ggplot() + Branchtheme +
 
 
 
-input$Figure_left <- plot_grid(input$Figure_A, input$Figure_B, nrow = 2, rel_heights = c(1, 1), labels = c("A", "B"))
+input$Figure_left <- plot_grid(input$Figure_A, input$Figure_B, nrow = 2, align = "v", rel_heights = c(1, 1), labels = c("A", "B"))
 
 input$Figure_data <- plot_grid(input$Figure_left, input$Figure_C, ncol = 2, labels = c("", "C"))
 
@@ -39,9 +39,10 @@ Branchtheme <- theme_minimal() +
   theme(
     plot.title = element_text(face = "bold"),  
     strip.background = element_blank(), strip.text.x = element_blank(),
-    # plot.title.position = "plot", plot.caption.position = "plot",
+    plot.title.position = "plot", plot.caption.position = "plot",
     legend.position = "none", legend.justification = "top",
-    panel.grid.minor.x = element_blank(), panel.grid.minor.y = element_blank()
+    panel.grid.minor.x = element_blank(), panel.grid.minor.y = element_blank(),
+    axis.title.x = element_text(size = 9)
     # panel.grid.major.x = element_blank(),
     # text = element_text(family = "Source Sans Pro")
   )
@@ -62,7 +63,7 @@ plot_class <- function(input, gene, max_val) {
     labs(
       x = "mRNA abundance [log2(CPM(exons+introns))]",
       y = "",
-      title = glue("{gene}-expression in general brain cell types")
+      title = glue("          {gene}-expression in general brain cell types")
     ) +
     scale_color_scico_d(palette = sci_pal, begin = 0.75, end = 0)
 }
@@ -73,8 +74,8 @@ plot_class <- function(input, gene, max_val) {
 plot_neighborhood <- function(input, gene, max_val) {
   input$final %>%
     filter(feature == gene) %>%
-    mutate(neighborhood_label = fct_reorder(neighborhood_label, expression)) %>%
-    ggplot(aes(y = neighborhood_label, x = expression)) +
+    mutate(recoded_name = fct_reorder(recoded_name, expression)) %>%
+    ggplot(aes(y = recoded_name, x = expression)) +
     geom_boxplot(color = "grey") +
     geom_point(shape = 16, aes(color = class_label, size = number, alpha = log(number))) +
    # facet_wrap(~feature) +
@@ -82,7 +83,7 @@ plot_neighborhood <- function(input, gene, max_val) {
     labs(
       x = "mRNA abundance [log2(CPM(exons+introns))]",
       y = "",
-      title = glue("{gene}-expression in neighborhoods")
+      title = glue("          {gene}-expression in neighborhoods")
     ) +
     coord_cartesian(xlim = c(0,max_val)) +
 #    scale_x_continuous(limits = c(0, 10)) +
@@ -103,7 +104,7 @@ plot_subclass <- function(input, gene, max_val) {
     labs(
       x = "mRNA abundance [log2(CPM(exons+introns))]",
       y = "",
-      title = glue("{gene}-expression in individual cell types")
+      title = glue("          {gene}-expression in individual cell types")
     ) +
     coord_cartesian(xlim = c(0,max_val)) +
 #    scale_x_continuous(limits = c(0, 10)) +
