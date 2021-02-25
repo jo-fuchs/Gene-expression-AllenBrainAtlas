@@ -24,7 +24,7 @@ find_gene <- function(input, gene) {
   )
   
   # select Gene of interest from expression levels
-  input$gene_expression <- input$expression_means %>% filter(str_detect(feature, gene))
+  input$gene_expression <- input$expression_means %>% filter(feature == gene)
   
   
   
