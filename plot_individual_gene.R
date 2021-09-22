@@ -8,7 +8,7 @@ input$Figure_C <- plot_subclass(input, gene, max_val)
 
 input$Header <- ggplot() + Branchtheme + 
   labs(title = glue("mRNA levels of {gene} in various P50-P60 mouse brain cells"),
-       subtitle = glue("single-cell transcriptomes ({input$name}) from multiple cortical areas and the hippocampal formation, including {input$cellcount} total cells"))
+       subtitle = glue("single-cell transcriptomes (Allen brain institute - {input$name}) from multiple cortical areas and the hippocampal formation, including {input$cellcount} total cells"))
 
 
 
@@ -39,7 +39,7 @@ Branchtheme <- theme_minimal() +
   theme(
     plot.title = element_text(face = "bold"),  
     strip.background = element_blank(), strip.text.x = element_blank(),
-    plot.title.position = "plot", plot.caption.position = "plot",
+    #plot.title.position = "plot", plot.caption.position = "plot",
     legend.position = "none", legend.justification = "top",
     panel.grid.minor.x = element_blank(), panel.grid.minor.y = element_blank(),
     axis.title.x = element_text(size = 9)
@@ -77,7 +77,7 @@ plot_neighborhood <- function(input, gene, max_val) {
     mutate(recoded_name = fct_reorder(recoded_name, expression)) %>%
     ggplot(aes(y = recoded_name, x = expression)) +
     geom_boxplot(color = "grey") +
-    geom_point(shape = 16, aes(color = class_label, size = number, alpha = log(number))) +
+    geom_quasirandom(groupOnX = F, shape = 16, aes(color = class_label, size = number, alpha = log(number))) +
    # facet_wrap(~feature) +
     Branchtheme +
     labs(
@@ -98,7 +98,7 @@ plot_subclass <- function(input, gene, max_val) {
     mutate(subclass_label = fct_reorder(subclass_label, expression)) %>%
     ggplot(aes(y = subclass_label, x = expression)) +
     geom_boxplot(color = "grey") +
-    geom_point(shape = 16, aes(color = class_label, size = number, alpha = log(number))) +
+    geom_quasirandom(groupOnX = F, shape = 16, aes(color = class_label, size = number, alpha = log(number))) +
    # facet_wrap(~feature) +
     Branchtheme +
     labs(
