@@ -49,7 +49,7 @@ Developing <- list(name = "Developing (E10-15) - mousebrain.org",
                    cellcount = "292,495")
 
 Developing$expression_means <- loomR::connect(filename = file.path("Developing", "dev_all.agg.loom"), mode = "r+", skip.validate = T)
-Developing$genes <- Adolescent$expression_means$row.attrs$Gene[]
+Developing$genes <- Developing$expression_means$row.attrs$Gene[]
 
 
 
